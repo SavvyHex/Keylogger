@@ -86,3 +86,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         if not quiet:
             print("Exiting")
+            exit(0)

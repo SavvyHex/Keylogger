@@ -10,3 +10,4 @@ keylogger -i <interval>
 ```
 Options :
 - -q (quiet) : Use this option to hide messages to stdout
+- -f (folder) : Specifies the folder to which the log files are to be saved

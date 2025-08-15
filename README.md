@@ -88,6 +88,8 @@ Run quietly and save logs to a specific folder:
 keylogger -i 10 -q -f ./logs
 ```
 
+---
+
 ## Contributing
 
 Contributions are always welcome! Some ways you can get involved:
